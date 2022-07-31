@@ -74,3 +74,45 @@ func (q *Queries) GetUser(ctx context.Context, uUuid uuid.UUID) (User, error) {
 	)
 	return i, err
 }
+
+const listUser = `-- name: ListUser :many
+SELECT u_uuid, u_first_name, u_last_name, u_type, u_org, u_detail FROM users
+ORDER BY u_first_name
+LIMIT $1
+OFFSET $2
+`
+
+type ListUserParams struct {
+	Limit  int32 `json:"limit"`
+	Offset int32 `json:"offset"`
+}
+
+func (q *Queries) ListUser(ctx context.Context, arg ListUserParams) ([]User, error) {
+	rows, err := q.db.QueryContext(ctx, listUser, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.UUuid,
+			&i.UFirstName,
+			&i.ULastName,
+			&i.UType,
+			&i.UOrg,
+			&i.UDetail,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}

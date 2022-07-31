@@ -14,3 +14,9 @@ DELETE FROM users WHERE u_uuid = $1;
 
 -- name: GetUser :one
 SELECT * FROM users WHERE u_uuid = $1 LIMIT 1;
+
+-- name: ListUser :many
+SELECT * FROM users
+ORDER BY u_first_name
+LIMIT $1
+OFFSET $2;
