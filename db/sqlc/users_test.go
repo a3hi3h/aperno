@@ -15,7 +15,7 @@ func createRandomUser(t *testing.T) User {
 		UUuid:      uuid.New(),
 		UFirstName: util.RandomString(6),
 		ULastName:  util.RandomString(6),
-		UType:      util.RandomInt(),
+		UType:      1,
 	}
 
 	user, err := testQueries.CreateUser(context.Background(), arg)
