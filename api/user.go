@@ -49,6 +49,8 @@ func (server *Server) listUsers(ctx *gin.Context) {
 		return
 	}
 
+	// 	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload)
+
 	arg := db.ListUserParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
