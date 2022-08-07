@@ -11,10 +11,19 @@ import (
 )
 
 type Querier interface {
+	CreateAccount(ctx context.Context, arg CreateAccountParams) (Account, error)
+	CreateExamRound(ctx context.Context, arg CreateExamRoundParams) (Examround, error)
+	CreateOrg(ctx context.Context, arg CreateOrgParams) (Org, error)
+	CreateQuestions(ctx context.Context, arg CreateQuestionsParams) (Question, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
-	DeleteUser(ctx context.Context, uUuid uuid.UUID) error
-	GetUser(ctx context.Context, uUuid uuid.UUID) (User, error)
-	ListUser(ctx context.Context, arg ListUserParams) ([]User, error)
+	CreateUserSession(ctx context.Context, arg CreateUserSessionParams) (Usersession, error)
+	GetAccount(ctx context.Context, userid uuid.UUID) (Account, error)
+	GetExamRound(ctx context.Context, id uuid.UUID) (Examround, error)
+	GetOrgFromUser(ctx context.Context, userid uuid.UUID) (Org, error)
+	GetQuestion(ctx context.Context, id uuid.UUID) (Question, error)
+	GetSession(ctx context.Context, id uuid.UUID) (Usersession, error)
+	GetUserFromEmail(ctx context.Context, email string) (User, error)
+	GetUserIdForSession(ctx context.Context, id uuid.UUID) (uuid.UUID, error)
 }
 
 var _ Querier = (*Queries)(nil)

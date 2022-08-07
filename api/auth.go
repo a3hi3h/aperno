@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -17,11 +18,17 @@ const (
 )
 
 // AuthMiddleware creates a gin middleware for authorization
-func authMiddleware(tokenMaker token.TokenHandler) gin.HandlerFunc {
+func authMiddleware(tokenMaker token.TokenHandler, required bool) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		authorizationHeader := ctx.GetHeader(authorizationHeaderKey)
 
+		log.Println("Auth middleware fpr ")
 		if len(authorizationHeader) == 0 {
+			if required == false {
+				log.Println("authorization header is not provided")
+				ctx.Next()
+				return
+			}
 			err := errors.New("authorization header is not provided")
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, errorResponse(err))
 			return
@@ -48,7 +55,9 @@ func authMiddleware(tokenMaker token.TokenHandler) gin.HandlerFunc {
 			return
 		}
 
-		ctx.Set(authorizationPayloadKey, payload)
+		log.Println("Setting authorizationPayloadKey ")
+		log.Println(payload.Username)
+		ctx.Set(authorizationPayloadKey, accessToken)
 		ctx.Next()
 	}
 }

@@ -1,92 +1,88 @@
-CREATE TABLE "questions" (
-  "q_uuid" uuid PRIMARY KEY,
-  "q_type" int NOT NULL,
-  "q_level" int NOT NULL,
-  "question" json NOT NULL,
-  "created_at" timestamp
-);
-
-CREATE TABLE "exam" (
-  "q_uuid" uuid PRIMARY KEY,
-  "e_type" int,
-  "e_level" int,
-  "e_name" varchar,
-  "q_list" json,
-  "created_at" timestamp
-);
-
-CREATE TABLE "skill" (
-  "s_uuid" uuid PRIMARY KEY,
-  "skill_name" varchar,
-  "skill_type" int,
-  "exam_list" json,
-  "created_at" timestamp
-);
-
-CREATE TABLE "job" (
-  "j_uuid" uuid PRIMARY KEY,
-  "job_name" varchar,
-  "job_type" int,
-  "job_status" int,
-  "job_desc" json,
-  "job_skill" json
-);
-
 CREATE TABLE "users" (
-  "u_uuid" uuid PRIMARY KEY,
-  "u_first_name" varchar not NULL,
-  "u_last_name" varchar not NULL,
-  "u_type" int NOT NULL,
-  "u_org" uuid,
-  "u_detail" json
+  "id" uuid PRIMARY KEY NOT NULL,
+  "status" int NOT NULL,
+  "type" int NOT NULL,
+  "orgid" uuid,
+  "first_name" varchar NOT NULL,
+  "last_name" varchar NOT NULL,
+  "email" varchar NOT NULL,
+  "hashedpwd" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  "last_modified" timestamp
 );
 
-CREATE TABLE "usersgroup" (
-  "ug_uuid" uuid PRIMARY KEY,
-  "ug_name" varchar,
-  "ug_type" int,
-  "ug_org" uuid,
-  "ug_list" json
+CREATE TABLE "org" (
+  "id" uuid PRIMARY KEY NOT NULL,
+  "name" varchar NOT NULL,
+  "userid" uuid NOT NULL,
+  "accountid" uuid
 );
 
-
-CREATE TABLE "organization" (
-  "o_uuid" uuid PRIMARY KEY,
-  "country_code" int,
-  "org_name" varchar NOT NULL,
-  "org_type" varchar,
-  "org_cat" int,
-  "job_list" json,
-  "admin_id" uuid,
-  "org_billing_details" json,
-  "last_billing" uuid
+CREATE TABLE "questions" (
+  "id" uuid PRIMARY KEY NOT NULL,
+  "type" int NOT NULL,
+  "level" int NOT NULL,
+  "format" int NOT NULL,
+  "userid" uuid NOT NULL,
+  "orgid" uuid,
+  "question" varchar NOT NULL,
+  "question_time" int,
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  "last_modified" timestamp
 );
 
-CREATE TABLE "hiree" (
-  "h_uuid" uuid PRIMARY KEY,
-  "h_u_uuid" uuid,
-  "h_details" json,
-  "h_job_details" json,
-  "h_skills" json
+CREATE TABLE "examround" (
+  "id" uuid PRIMARY KEY NOT NULL,
+  "type" int NOT NULL,
+  "level" int NOT NULL,
+  "time" int NOT NULL,
+  "userid" uuid NOT NULL,
+  "orgid" uuid NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  "last_modified" timestamp
 );
 
-CREATE TABLE "billing" (
-  "b_uuid" uuid PRIMARY KEY,
-  "b_prev" uuid,
-  "b_type" int,
-  "b_created" timestamp,
-  "b_paid" timestamp,
-  "b_last_reminder" timestamp,
-  "b_org" uuid,
-  "b_detail" json,
-  "b_paid_detail" json
+CREATE TABLE "accounts" (
+  "id" uuid PRIMARY KEY NOT NULL,
+  "name" varchar NOT NULL,
+  "status" varchar NOT NULL,
+  "type" int not null,
+  "userid" uuid NOT NULL,
+  "orgid" uuid NOT NULL,
+  "city" varchar,
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  "last_modified" timestamp
 );
 
-CREATE INDEX ON "organization" ("org_name");
+CREATE TABLE "usersessions" (
+  "id" uuid PRIMARY KEY NOT NULL,
+  "userid" uuid NOT NULL,
+  "refresh_token" varchar NOT NULL,
+  "user_agent" varchar NOT NULL,
+  "client_ip" varchar NOT NULL,
+  "expires_at" timestamp not null,
+  "is_blocked" boolean NOT NULL DEFAULT false,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
 
-ALTER TABLE "exam" ADD FOREIGN KEY ("q_list") REFERENCES "questions" ("q_uuid");
+CREATE UNIQUE INDEX ON "users" ("email");
 
-ALTER TABLE "skill" ADD FOREIGN KEY ("exam_list") REFERENCES "exam" ("q_list");
+ALTER TABLE "users" ADD FOREIGN KEY ("orgid") REFERENCES "org" ("id");
 
-ALTER TABLE "job" ADD FOREIGN KEY ("job_skill") REFERENCES "skill" ("s_uuid");
+ALTER TABLE "org" ADD FOREIGN KEY ("userid") REFERENCES "users" ("id");
 
+ALTER TABLE "org" ADD FOREIGN KEY ("accountid") REFERENCES "accounts" ("id");
+
+ALTER TABLE "questions" ADD FOREIGN KEY ("userid") REFERENCES "users" ("id");
+
+ALTER TABLE "questions" ADD FOREIGN KEY ("orgid") REFERENCES "org" ("id");
+
+ALTER TABLE "examRound" ADD FOREIGN KEY ("userid") REFERENCES "users" ("id");
+
+ALTER TABLE "examRound" ADD FOREIGN KEY ("orgid") REFERENCES "org" ("id");
+
+ALTER TABLE "accounts" ADD FOREIGN KEY ("userid") REFERENCES "users" ("id");
+
+ALTER TABLE "accounts" ADD FOREIGN KEY ("orgid") REFERENCES "org" ("id");
+
+ALTER TABLE "userSessions" ADD FOREIGN KEY ("userid") REFERENCES "users" ("id");

@@ -12,19 +12,21 @@ import (
 
 func createRandomUser(t *testing.T) User {
 	arg := CreateUserParams{
-		UUuid:      uuid.New(),
-		UFirstName: util.RandomString(6),
-		ULastName:  util.RandomString(6),
-		UType:      1,
+		ID:        uuid.New(),
+		FirstName: util.RandomString(6),
+		LastName:  util.RandomString(6),
+		Email:     util.RandomEmail(),
+		Hashedpwd: util.RandomString(6),
+		Type:      1,
 	}
 
 	user, err := testQueries.CreateUser(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, user)
 
-	require.Equal(t, arg.UFirstName, user.UFirstName)
-	require.Equal(t, arg.ULastName, user.ULastName)
-	require.Equal(t, arg.UUuid, user.UUuid)
+	require.Equal(t, arg.FirstName, user.FirstName)
+	require.Equal(t, arg.LastName, user.LastName)
+	require.Equal(t, arg.ID, user.ID)
 
 	return user
 }

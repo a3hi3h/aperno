@@ -8,5 +8,5 @@ import (
 func TestSqlStore(t *testing.T) {
 	user1 := createRandomUser(t)
 	user2 := createRandomUser(t)
-	fmt.Println(">> before:", user1.UFirstName, user2.UFirstName)
+	fmt.Println(">> before:", user1.FirstName, user2.FirstName)
 }

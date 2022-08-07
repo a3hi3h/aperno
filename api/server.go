@@ -38,8 +38,33 @@ func NewServer(config util.Config, sqlStore db.Storage) (*Server, error) {
 func (server *Server) setupRouter() {
 	router := gin.Default()
 
-	router.POST("/users", server.createUser)
-	router.GET("/users", server.listUsers)
+	router.LoadHTMLGlob("templates/*.tmpl")
+	/*
+		newtemplates := template.Must(template.ParseFiles(
+			"templates/site.tmpl",
+			"templates/site.tmpl",
+		))
+		router.SetHTMLTemplate(newtemplates)
+	*/
+
+	router.Static("/assets", "templates/assets")
+
+	router.GET("/", server.homePage)
+	router.GET("/about", server.homePage)
+	router.GET("/pricing", server.homePage)
+	//router.GET("/signup", server.homePage)
+	router.POST("/login", server.loginUser)
+	authCheckRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker, false))
+	authCheckRoutes.GET("/login", server.loginUser)
+
+	//router.POST("/user/create", server.createUser)
+	//router.POST("/user/login", server.loginUser)
+
+	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker, true))
+	authRoutes.POST("/accounts/create", server.createAccount)
+	authRoutes.POST("/accounts", server.getAccount)
+
+	authRoutes.POST("/question/create", server.createQuestion)
 
 	/*
 		router.POST("/users/login", server.loginUser)

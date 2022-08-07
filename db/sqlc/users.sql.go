@@ -13,106 +13,75 @@ import (
 
 const createUser = `-- name: CreateUser :one
 insert into users (
-   u_uuid, 
-   u_first_name, 
-   u_last_name,
-   u_type
+   id, 
+   status,
+   orgid,
+   first_name, 
+   last_name,
+   email, 
+   hashedpwd,
+   type
 ) VALUES (
-    $1, $2, $3, $4
-) RETURNING u_uuid, u_first_name, u_last_name, u_type, u_org, u_detail
+    $1, $2, $3, $4, $5, $6, $7, $8
+) RETURNING id, status, type, orgid, first_name, last_name, email, hashedpwd, created_at, last_modified
 `
 
 type CreateUserParams struct {
-	UUuid      uuid.UUID `json:"u_uuid"`
-	UFirstName string    `json:"u_first_name"`
-	ULastName  string    `json:"u_last_name"`
-	UType      int32     `json:"u_type"`
+	ID        uuid.UUID     `json:"id"`
+	Status    int32         `json:"status"`
+	Orgid     uuid.NullUUID `json:"orgid"`
+	FirstName string        `json:"first_name"`
+	LastName  string        `json:"last_name"`
+	Email     string        `json:"email"`
+	Hashedpwd string        `json:"hashedpwd"`
+	Type      int32         `json:"type"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
 	row := q.db.QueryRowContext(ctx, createUser,
-		arg.UUuid,
-		arg.UFirstName,
-		arg.ULastName,
-		arg.UType,
+		arg.ID,
+		arg.Status,
+		arg.Orgid,
+		arg.FirstName,
+		arg.LastName,
+		arg.Email,
+		arg.Hashedpwd,
+		arg.Type,
 	)
 	var i User
 	err := row.Scan(
-		&i.UUuid,
-		&i.UFirstName,
-		&i.ULastName,
-		&i.UType,
-		&i.UOrg,
-		&i.UDetail,
+		&i.ID,
+		&i.Status,
+		&i.Type,
+		&i.Orgid,
+		&i.FirstName,
+		&i.LastName,
+		&i.Email,
+		&i.Hashedpwd,
+		&i.CreatedAt,
+		&i.LastModified,
 	)
 	return i, err
 }
 
-const deleteUser = `-- name: DeleteUser :exec
-DELETE FROM users WHERE u_uuid = $1
+const getUserFromEmail = `-- name: GetUserFromEmail :one
+SELECT id, status, type, orgid, first_name, last_name, email, hashedpwd, created_at, last_modified FROM users WHERE email = $1 LIMIT 1
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, uUuid uuid.UUID) error {
-	_, err := q.db.ExecContext(ctx, deleteUser, uUuid)
-	return err
-}
-
-const getUser = `-- name: GetUser :one
-SELECT u_uuid, u_first_name, u_last_name, u_type, u_org, u_detail FROM users WHERE u_uuid = $1 LIMIT 1
-`
-
-func (q *Queries) GetUser(ctx context.Context, uUuid uuid.UUID) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, uUuid)
+func (q *Queries) GetUserFromEmail(ctx context.Context, email string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserFromEmail, email)
 	var i User
 	err := row.Scan(
-		&i.UUuid,
-		&i.UFirstName,
-		&i.ULastName,
-		&i.UType,
-		&i.UOrg,
-		&i.UDetail,
+		&i.ID,
+		&i.Status,
+		&i.Type,
+		&i.Orgid,
+		&i.FirstName,
+		&i.LastName,
+		&i.Email,
+		&i.Hashedpwd,
+		&i.CreatedAt,
+		&i.LastModified,
 	)
 	return i, err
-}
-
-const listUser = `-- name: ListUser :many
-SELECT u_uuid, u_first_name, u_last_name, u_type, u_org, u_detail FROM users
-ORDER BY u_first_name
-LIMIT $1
-OFFSET $2
-`
-
-type ListUserParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListUser(ctx context.Context, arg ListUserParams) ([]User, error) {
-	rows, err := q.db.QueryContext(ctx, listUser, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []User{}
-	for rows.Next() {
-		var i User
-		if err := rows.Scan(
-			&i.UUuid,
-			&i.UFirstName,
-			&i.ULastName,
-			&i.UType,
-			&i.UOrg,
-			&i.UDetail,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }

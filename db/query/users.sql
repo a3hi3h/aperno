@@ -1,22 +1,17 @@
 -- name: CreateUser :one
 insert into users (
-   u_uuid, 
-   u_first_name, 
-   u_last_name,
-   u_type
+   id, 
+   status,
+   orgid,
+   first_name, 
+   last_name,
+   email, 
+   hashedpwd,
+   type
 ) VALUES (
-    $1, $2, $3, $4
+    $1, $2, $3, $4, $5, $6, $7, $8
 ) RETURNING *;
 
+-- name: GetUserFromEmail :one
+SELECT * FROM users WHERE email = $1 LIMIT 1;
 
--- name: DeleteUser :exec
-DELETE FROM users WHERE u_uuid = $1;
-
--- name: GetUser :one
-SELECT * FROM users WHERE u_uuid = $1 LIMIT 1;
-
--- name: ListUser :many
-SELECT * FROM users
-ORDER BY u_first_name
-LIMIT $1
-OFFSET $2;

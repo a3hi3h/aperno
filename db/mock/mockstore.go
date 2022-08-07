@@ -36,6 +36,66 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 	return m.recorder
 }
 
+// CreateAccount mocks base method.
+func (m *MockStorage) CreateAccount(arg0 context.Context, arg1 db.CreateAccountParams) (db.Account, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAccount", arg0, arg1)
+	ret0, _ := ret[0].(db.Account)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAccount indicates an expected call of CreateAccount.
+func (mr *MockStorageMockRecorder) CreateAccount(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAccount", reflect.TypeOf((*MockStorage)(nil).CreateAccount), arg0, arg1)
+}
+
+// CreateExamRound mocks base method.
+func (m *MockStorage) CreateExamRound(arg0 context.Context, arg1 db.CreateExamRoundParams) (db.Examround, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateExamRound", arg0, arg1)
+	ret0, _ := ret[0].(db.Examround)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateExamRound indicates an expected call of CreateExamRound.
+func (mr *MockStorageMockRecorder) CreateExamRound(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateExamRound", reflect.TypeOf((*MockStorage)(nil).CreateExamRound), arg0, arg1)
+}
+
+// CreateOrg mocks base method.
+func (m *MockStorage) CreateOrg(arg0 context.Context, arg1 db.CreateOrgParams) (db.Org, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateOrg", arg0, arg1)
+	ret0, _ := ret[0].(db.Org)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateOrg indicates an expected call of CreateOrg.
+func (mr *MockStorageMockRecorder) CreateOrg(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateOrg", reflect.TypeOf((*MockStorage)(nil).CreateOrg), arg0, arg1)
+}
+
+// CreateQuestions mocks base method.
+func (m *MockStorage) CreateQuestions(arg0 context.Context, arg1 db.CreateQuestionsParams) (db.Question, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateQuestions", arg0, arg1)
+	ret0, _ := ret[0].(db.Question)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateQuestions indicates an expected call of CreateQuestions.
+func (mr *MockStorageMockRecorder) CreateQuestions(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateQuestions", reflect.TypeOf((*MockStorage)(nil).CreateQuestions), arg0, arg1)
+}
+
 // CreateUser mocks base method.
 func (m *MockStorage) CreateUser(arg0 context.Context, arg1 db.CreateUserParams) (db.User, error) {
 	m.ctrl.T.Helper()
@@ -51,46 +111,122 @@ func (mr *MockStorageMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockStorage)(nil).CreateUser), arg0, arg1)
 }
 
-// DeleteUser mocks base method.
-func (m *MockStorage) DeleteUser(arg0 context.Context, arg1 uuid.UUID) error {
+// CreateUserSession mocks base method.
+func (m *MockStorage) CreateUserSession(arg0 context.Context, arg1 db.CreateUserSessionParams) (db.Usersession, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteUser", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret := m.ctrl.Call(m, "CreateUserSession", arg0, arg1)
+	ret0, _ := ret[0].(db.Usersession)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
-// DeleteUser indicates an expected call of DeleteUser.
-func (mr *MockStorageMockRecorder) DeleteUser(arg0, arg1 interface{}) *gomock.Call {
+// CreateUserSession indicates an expected call of CreateUserSession.
+func (mr *MockStorageMockRecorder) CreateUserSession(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockStorage)(nil).DeleteUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUserSession", reflect.TypeOf((*MockStorage)(nil).CreateUserSession), arg0, arg1)
 }
 
-// GetUser mocks base method.
-func (m *MockStorage) GetUser(arg0 context.Context, arg1 uuid.UUID) (db.User, error) {
+// GetAccount mocks base method.
+func (m *MockStorage) GetAccount(arg0 context.Context, arg1 uuid.UUID) (db.Account, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetUser", arg0, arg1)
+	ret := m.ctrl.Call(m, "GetAccount", arg0, arg1)
+	ret0, _ := ret[0].(db.Account)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAccount indicates an expected call of GetAccount.
+func (mr *MockStorageMockRecorder) GetAccount(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAccount", reflect.TypeOf((*MockStorage)(nil).GetAccount), arg0, arg1)
+}
+
+// GetExamRound mocks base method.
+func (m *MockStorage) GetExamRound(arg0 context.Context, arg1 uuid.UUID) (db.Examround, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetExamRound", arg0, arg1)
+	ret0, _ := ret[0].(db.Examround)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetExamRound indicates an expected call of GetExamRound.
+func (mr *MockStorageMockRecorder) GetExamRound(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetExamRound", reflect.TypeOf((*MockStorage)(nil).GetExamRound), arg0, arg1)
+}
+
+// GetOrgFromUser mocks base method.
+func (m *MockStorage) GetOrgFromUser(arg0 context.Context, arg1 uuid.UUID) (db.Org, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetOrgFromUser", arg0, arg1)
+	ret0, _ := ret[0].(db.Org)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetOrgFromUser indicates an expected call of GetOrgFromUser.
+func (mr *MockStorageMockRecorder) GetOrgFromUser(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetOrgFromUser", reflect.TypeOf((*MockStorage)(nil).GetOrgFromUser), arg0, arg1)
+}
+
+// GetQuestion mocks base method.
+func (m *MockStorage) GetQuestion(arg0 context.Context, arg1 uuid.UUID) (db.Question, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetQuestion", arg0, arg1)
+	ret0, _ := ret[0].(db.Question)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetQuestion indicates an expected call of GetQuestion.
+func (mr *MockStorageMockRecorder) GetQuestion(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetQuestion", reflect.TypeOf((*MockStorage)(nil).GetQuestion), arg0, arg1)
+}
+
+// GetSession mocks base method.
+func (m *MockStorage) GetSession(arg0 context.Context, arg1 uuid.UUID) (db.Usersession, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetSession", arg0, arg1)
+	ret0, _ := ret[0].(db.Usersession)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetSession indicates an expected call of GetSession.
+func (mr *MockStorageMockRecorder) GetSession(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSession", reflect.TypeOf((*MockStorage)(nil).GetSession), arg0, arg1)
+}
+
+// GetUserFromEmail mocks base method.
+func (m *MockStorage) GetUserFromEmail(arg0 context.Context, arg1 string) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUserFromEmail", arg0, arg1)
 	ret0, _ := ret[0].(db.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetUser indicates an expected call of GetUser.
-func (mr *MockStorageMockRecorder) GetUser(arg0, arg1 interface{}) *gomock.Call {
+// GetUserFromEmail indicates an expected call of GetUserFromEmail.
+func (mr *MockStorageMockRecorder) GetUserFromEmail(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockStorage)(nil).GetUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserFromEmail", reflect.TypeOf((*MockStorage)(nil).GetUserFromEmail), arg0, arg1)
 }
 
-// ListUser mocks base method.
-func (m *MockStorage) ListUser(arg0 context.Context, arg1 db.ListUserParams) ([]db.User, error) {
+// GetUserIdForSession mocks base method.
+func (m *MockStorage) GetUserIdForSession(arg0 context.Context, arg1 uuid.UUID) (uuid.UUID, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListUser", arg0, arg1)
-	ret0, _ := ret[0].([]db.User)
+	ret := m.ctrl.Call(m, "GetUserIdForSession", arg0, arg1)
+	ret0, _ := ret[0].(uuid.UUID)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListUser indicates an expected call of ListUser.
-func (mr *MockStorageMockRecorder) ListUser(arg0, arg1 interface{}) *gomock.Call {
+// GetUserIdForSession indicates an expected call of GetUserIdForSession.
+func (mr *MockStorageMockRecorder) GetUserIdForSession(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUser", reflect.TypeOf((*MockStorage)(nil).ListUser), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUserIdForSession", reflect.TypeOf((*MockStorage)(nil).GetUserIdForSession), arg0, arg1)
 }
