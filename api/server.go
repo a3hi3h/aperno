@@ -52,15 +52,16 @@ func (server *Server) setupRouter() {
 	router.GET("/", server.homePage)
 	router.GET("/about", server.homePage)
 	router.GET("/pricing", server.homePage)
-	//router.GET("/signup", server.homePage)
+	router.GET("/signup", server.homePage)
 	router.POST("/login", server.loginUser)
-	authCheckRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker, false))
+
+	router.GET("/exam/create", server.loginUser)
+
+	authCheckRoutes := router.Group("/").Use(authSession(server.tokenMaker, false))
 	authCheckRoutes.GET("/login", server.loginUser)
+	authCheckRoutes.GET("/user", server.homePage)
 
-	//router.POST("/user/create", server.createUser)
-	//router.POST("/user/login", server.loginUser)
-
-	authRoutes := router.Group("/").Use(authMiddleware(server.tokenMaker, true))
+	authRoutes := router.Group("/").Use(authSession(server.tokenMaker, true))
 	authRoutes.POST("/accounts/create", server.createAccount)
 	authRoutes.POST("/accounts", server.getAccount)
 

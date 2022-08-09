@@ -19,7 +19,11 @@ func (server *Server) homePage(ctx *gin.Context) {
 	case "/login":
 		tmpName = "login"
 	case "/signup":
-		tmpName = "signup"
+		tmpName = "usercreate"
+	case "/user":
+		tmpName = "user"
+	case "/create":
+		tmpName = "usercreate"
 	}
 
 	ctx.HTML(http.StatusOK, tmpName, gin.H{

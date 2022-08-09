@@ -167,6 +167,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 			ctx.HTML(http.StatusOK, "login", gin.H{
 				"title": "Aperno Home Page",
 			})
+			return
 		}
 		return
 	}
@@ -181,10 +182,15 @@ func (server *Server) loginUser(ctx *gin.Context) {
 		return
 	}
 
+	ctx.Request.ParseForm()
 	log.Println("Authentication payload")
-	log.Println(userReq.email)
+	log.Println(ctx.Request.Form["email"])
+	log.Println(ctx.Request.Form["password"])
+	log.Println(userReq)
+	userEmail := string(ctx.Request.Form["email"][0])
+	userPassword := string(ctx.Request.Form["password"][0])
 
-	user, err := server.sqlStore.GetUserFromEmail(ctx, userReq.email)
+	user, err := server.sqlStore.GetUserFromEmail(ctx, userEmail)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			ctx.HTML(http.StatusNotFound, "error", errorResponse(err))
@@ -194,7 +200,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 		return
 	}
 
-	err = util.CheckPassword(userReq.password, user.Hashedpwd)
+	err = util.CheckPassword(userPassword, user.Hashedpwd)
 	if err != nil {
 		ctx.HTML(http.StatusUnauthorized, "error", errorResponse(err))
 		return
@@ -236,6 +242,7 @@ func (server *Server) loginUser(ctx *gin.Context) {
 
 	ctx.Set(authorizationPayloadKey, accessPayload)
 	ctx.Writer.Header().Set(authorizationHeaderKey, authorizationTypeBearer+" "+accessToken)
+	ctx.SetCookie(authorizationHeaderKey, accessToken, accessPayload.ExpiredAt.Second(), "/", "", true, true)
 
 	/*
 		body, _ := ioutil.ReadAll(ctx.Request.Body)
@@ -248,5 +255,5 @@ func (server *Server) loginUser(ctx *gin.Context) {
 	log.Println(accessPayload.Username)
 	log.Println(accessPayload.ID)
 
-	ctx.Redirect(http.StatusFound, "/login")
+	ctx.Redirect(http.StatusFound, "/user")
 }
