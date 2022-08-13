@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"net/http"
 
 	db "github.com/a3hi3h/aperno/db/sqlc"
 	"github.com/a3hi3h/aperno/token"
@@ -55,7 +56,11 @@ func (server *Server) setupRouter() {
 	router.GET("/signup", server.homePage)
 	router.POST("/login", server.loginUser)
 
-	router.GET("/exam/create", server.loginUser)
+	router.GET("/exam/create", server.homePage)
+	router.POST("/exam/create", server.createExam)
+
+	router.GET("/exam/refer", server.homePage)
+	router.POST("/exam/refer", server.createExam)
 
 	authCheckRoutes := router.Group("/").Use(authSession(server.tokenMaker, false))
 	authCheckRoutes.GET("/login", server.loginUser)
@@ -67,6 +72,11 @@ func (server *Server) setupRouter() {
 
 	authRoutes.POST("/question/create", server.createQuestion)
 
+	router.NoRoute(func(c *gin.Context) {
+		c.HTML(http.StatusOK, "404", gin.H{
+			"title": "Aperno Home Page",
+		})
+	})
 	/*
 		router.POST("/users/login", server.loginUser)
 
@@ -82,6 +92,7 @@ func (server *Server) setupRouter() {
 
 			authRoutes.POST("/transfers", server.createTransfer)
 	*/
+	//router.GET("/*", server.homePage)
 	server.router = router
 }
 

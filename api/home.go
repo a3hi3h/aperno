@@ -24,6 +24,12 @@ func (server *Server) homePage(ctx *gin.Context) {
 		tmpName = "user"
 	case "/create":
 		tmpName = "usercreate"
+	case "/exam/create":
+		tmpName = "examcreate"
+	case "/exam/refer":
+		tmpName = "examrefer"
+	default:
+		tmpName = "404"
 	}
 
 	ctx.HTML(http.StatusOK, tmpName, gin.H{
