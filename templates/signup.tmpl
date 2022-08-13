@@ -1,155 +1,68 @@
-{{define "usercreate-content"}}
+{{define "signup-content"}}
 
-<main >
-      <section class="relative block" style="height: 50px;">
-        
-        
-      </section>
-    <section class="relative py-16 bg-gray-300">
-
-  <div class="container px-6 py-12 h-full">
-    <div class="flex justify-center items-center flex-wrap h-full text-gray-800">
-      <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-        <img
-          src="/assets/img/welcome.svg"
-          class="w-10/12"
-          alt="Phone image"
-        />
-      </div>
-      <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-            <form class="user" method="post" novalidate>
-                                        <div class="form-group mb-6">
-                                            <input type="text"
-                                                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   name="firstname" value="{{ $.form.firstname }}" placeholder="Enter First Name...">
-                                            
-                                        </div>
-                                                  
-              
-                                        <div class="form-group mb-6">
-                                            <input type="text"
-                                                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   name="lastname" value="{{ $.form.lastname }}" placeholder="Enter Last Name...">
-                                            
-                                        </div>
-                                        <div class="form-group mb-6">
-                                            <input type="email"
-                                                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   name="email" value="{{ $.form.email }}" placeholder="Enter Email Address...">
-                                            
-                                        </div>
-                                        <div class="form-group mb-6">
-                                            <input type="password"
-                                                   class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   name="password" value="{{ $.form.password }}" placeholder="Password">
-                                            
-                                        </div>
-                                        <div class="form-group flex justify-between items-center mb-6">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input "
-                                                       id="inputRemberMe" name="RememberMe" value="1" {{ if $.form.RememberMe }}checked="checked"{{end}}>
-                                                <label class="custom-control-label inline-block text-gray-800" for="inputRemberMe">Remember Me</label>
-                                            </div>
-                                        </div>
-                                        <button class="inline-block px-7 py-3 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full">
-                                            Sign up!
-                                            
-                                        </button>
-                                        <hr>
-                                        <a href="/user" class=" btn btn-secondary text-gray-800 hover:text-blue-700 hover:underline" >Cancel</a>
-                                        
-                                         
-            </form>
-   
+<section class="relative block" style="height: 50px;">        
+</section>
+<section class="relative py-16 bg-gray-300">
+   <div class="container px-6 py-12 h-full">
+      <div class="flex justify-center items-center flex-wrap h-full text-gray-800">
+         <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
+            <img
+               src="/assets/img/welcome.svg"
+               class="w-10/12"
+               alt="Phone image"
+               />
          </div>
-    </div>
-  </div>
-    </section>
-    </main>
+         <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
+            <form class="user" method="post" novalidate>
+               <div class="form-group mb-6">
+                  <input type="text"
+                     class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                     name="firstname" value="{{ $.form.firstname }}" placeholder="Enter First Name...">
+               </div>
+               <div class="form-group mb-6">
+                  <input type="text"
+                     class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                     name="lastname" value="{{ $.form.lastname }}" placeholder="Enter Last Name...">
+               </div>
+               <div class="form-group mb-6">
+                  <input type="email"
+                     class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                     name="email" value="{{ $.form.email }}" placeholder="Enter Email Address...">
+               </div>
+               <div class="form-group mb-6">
+                  <input type="password"
+                     class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                     name="password" value="{{ $.form.password }}" placeholder="Password">
+               </div>
+               <div class="form-group flex justify-between items-center mb-6">
+                  <div class="custom-control custom-checkbox small">
+                     <input type="checkbox" class="custom-control-input "
+                     id="inputRemberMe" name="RememberMe" value="1" {{ if $.form.RememberMe }}checked="checked"{{end}}>
+                     <label class="custom-control-label inline-block text-gray-800" for="inputRemberMe">Remember Me</label>
+                  </div>
+               </div>
+               <button class="inline-block px-7 py-3 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full">
+               Sign up!
+               </button>
+               <hr>
+               <a href="/user" class=" btn btn-secondary text-gray-800 hover:text-blue-700 hover:underline" >Cancel</a>
+            </form>
+         </div>
+      </div>
+   </div>
+</section>
 
 {{end}}
 
-{{define "signup-content"}}
 
-      <section class="relative block" style="height: 50px;">
-        
-        
-      </section>
-    <section class="relative py-16 bg-gray-300">
-
-<div class="bg-grey-lighter min-h-screen flex flex-col">
-            <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
-                <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-                    <h1 class="mb-8 text-3xl text-center">Sign up</h1>
-                    <input 
-                        type="text"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="fullname"
-                        placeholder="Full Name" />
-
-                                  <div class="form-group mb-6">
-            <input
-              type="email"
-              name="email"
-              value="{{ $.form.email }}"
-              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              placeholder="Email address"
-            />
-          </div>
-
-                    <input 
-                        type="text"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="email"
-                        placeholder="Email" />
-
-                    <input 
-                        type="password"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="password"
-                        placeholder="Password" />
-                    <input 
-                        type="password"
-                        class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="confirm_password"
-                        placeholder="Confirm Password" />
-
-                    <button
-                        type="submit"
-                        class="w-full text-center py-3 rounded bg-green text-white hover:bg-green-dark focus:outline-none my-1"
-                    >Create Account</button>
-
-                    <div class="text-center text-sm text-grey-dark mt-4">
-                        By signing up, you agree to the 
-                        <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                            Terms of Service
-                        </a> and 
-                        <a class="no-underline border-b border-grey-dark text-grey-dark" href="#">
-                            Privacy Policy
-                        </a>
-                    </div>
-                </div>
-
-                <div class="text-grey-dark mt-6">
-                    Already have an account? 
-                    <a class="no-underline border-b border-blue text-blue" href="../login/">
-                        Log in
-                    </a>.
-                </div>
-            </div>
-        </div>
-        </section>
-        {{ end }}
-
-
-{{ define "usercreate" }}
+{{ define "signup" }}
 
 {{template "site-head" .}}
 {{template "site-header" .}}
 
 <main>
 
-{{ template "usercreate-content" .}}
+{{ template "signup-content" .}}
   
 </main>
 

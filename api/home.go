@@ -19,9 +19,11 @@ func (server *Server) homePage(ctx *gin.Context) {
 	case "/login":
 		tmpName = "login"
 	case "/signup":
-		tmpName = "usercreate"
+		tmpName = "signup"
 	case "/user":
 		tmpName = "user"
+	case "/setting":
+		tmpName = "setting"
 	case "/create":
 		tmpName = "usercreate"
 	case "/exam/create":
