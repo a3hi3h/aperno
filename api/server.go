@@ -55,6 +55,7 @@ func (server *Server) setupRouter() {
 	router.GET("/pricing", server.homePage)
 	router.GET("/signup", server.homePage)
 	router.GET("/setting", server.homePage)
+	router.GET("/contact", server.homePage)
 	router.POST("/login", server.loginUser)
 
 	router.GET("/exam/create", server.homePage)
