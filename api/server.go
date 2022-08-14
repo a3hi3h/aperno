@@ -61,7 +61,7 @@ func (server *Server) setupRouter() {
 	router.GET("/exam/create", server.homePage)
 	router.POST("/exam/create", server.createExam)
 
-	router.GET("/exam/refer", server.homePage)
+	router.GET("/exam/refer", server.createExam)
 	router.POST("/exam/refer", server.createExam)
 
 	authCheckRoutes := router.Group("/").Use(authSession(server.tokenMaker, false))
